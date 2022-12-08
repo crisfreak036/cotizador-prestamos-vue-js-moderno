@@ -3,5 +3,5 @@
 </script>
 
 <template>
-  <h1>Hola Mundo</h1>
+  <h1 class="text-4xl font-black">Hola Mundo</h1>
 </template>
