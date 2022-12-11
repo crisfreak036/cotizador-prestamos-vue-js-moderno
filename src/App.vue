@@ -6,7 +6,7 @@
   const cantidad = ref(10000);
 
   const handleChange = (e) => {
-    cantidad.value = e.target.value;
+    cantidad.value = +e.target.value;
     console.log(cantidad.value)
   }
 </script>
@@ -22,13 +22,13 @@
         type="range" 
         name="" 
         id=""
-        className='w-full h-6 bg-gray-200 accent-lime-500 hover:accent-lime-600 mt-5'
+        class='w-full h-6 bg-gray-200 accent-lime-500 hover:accent-lime-600 mt-5'
         @input="handleChange"
       />
     </div>
 
     <p
-        className='text-center my-10 text-5xl font-extrabold text-indigo-600'
+        class='text-center my-10 text-5xl font-extrabold text-indigo-600'
       >
         {{cantidad}}
     </p>
