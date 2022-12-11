@@ -5,9 +5,12 @@
   // Definición de state con ref
   const cantidad = ref(10000);
 
+  const MIN = 0;
+  const MAX = 20000;
+  const STEP = 100;
+
   const handleChange = (e) => {
     cantidad.value = +e.target.value;
-    console.log(cantidad.value)
   }
 </script>
 
@@ -23,6 +26,10 @@
         name="" 
         id=""
         class='w-full h-6 bg-gray-200 accent-lime-500 hover:accent-lime-600 mt-5'
+        :min="MIN"
+        :max="MAX"
+        :step="STEP"
+        :value="cantidad"
         @input="handleChange"
       />
     </div>
