@@ -4,17 +4,10 @@
 
   // Definición de state con ref
   const cantidad = ref(10000);
-  console.log(cantidad.value)
-  // Obtener el valor -> cantidad.value
-
-  // Definición de state con reactive
-  // const state = reactive({
-  //   cantidad: 0
-  // });
-  // Obtener el valor -> state.cantidad
 
   const handleChange = (e) => {
-    console.log(e.target.value);
+    cantidad.value = e.target.value;
+    console.log(cantidad.value)
   }
 </script>
 
@@ -28,10 +21,16 @@
       <input 
         type="range" 
         name="" 
-        id="" 
+        id=""
         className='w-full h-6 bg-gray-200 accent-lime-500 hover:accent-lime-600 mt-5'
         @input="handleChange"
       />
     </div>
+
+    <p
+        className='text-center my-10 text-5xl font-extrabold text-indigo-600'
+      >
+        {{cantidad}}
+    </p>
   </div>
 </template>
