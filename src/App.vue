@@ -29,8 +29,7 @@
         :min="MIN"
         :max="MAX"
         :step="STEP"
-        :value="cantidad"
-        @input="handleChange"
+        v-model.number="cantidad"
       />
     </div>
 
