@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, reactive } from 'vue';
+  import { ref, computed } from 'vue';
   import Header from './components/Header.vue';
 
   // Definición de state con ref
@@ -9,9 +9,13 @@
   const MAX = 20000;
   const STEP = 100;
 
-  const handleChange = (e) => {
-    cantidad.value = +e.target.value;
-  }
+  const formatearDinero = computed( () => {
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    });
+    return formatter.format(cantidad.value);
+});
 </script>
 
 <template>
@@ -36,7 +40,7 @@
     <p
         class='text-center my-10 text-5xl font-extrabold text-indigo-600'
       >
-        {{cantidad}}
+        {{formatearDinero}}
     </p>
   </div>
 </template>
