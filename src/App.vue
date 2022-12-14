@@ -1,6 +1,7 @@
 <script setup>
   import { ref, computed } from 'vue';
   import Header from './components/Header.vue';
+  import Button from './components/Button.vue';
 
   // Definición de state con ref
   const cantidad = ref(10000);
@@ -15,7 +16,24 @@
         currency: 'USD'
     });
     return formatter.format(cantidad.value);
-});
+  });
+
+  const handleRange = (e) => {
+    cantidad.value = +e.target.value;
+  };
+
+  const handleDecremento = () => {
+    const valor = cantidad.value - STEP;
+    if (valor < MIN) return alert('Cantidad no valida')
+    cantidad.value = valor;
+  };
+
+  const handleIncremento = () => {
+    const valor = cantidad.value + STEP;
+    if (valor > MAX) return alert('Cantidad no valida')
+    cantidad.value = valor;
+  };
+
 </script>
 
 <template>
@@ -23,6 +41,23 @@
     class="my-20 max-w-lg mx-auto bg-white shadow p-10"
   >
     <Header/>
+
+    <div
+      className='flex justify-between my-6'
+    >
+      <Button
+        :tipoBoton="'button'"
+        :contenidoTexto="'-'"
+        :handle="handleDecremento"
+      />
+
+      <Button
+        :tipoBoton="'button'"
+        :contenidoTexto="'+'"
+        :handle="handleIncremento"
+      />
+
+    </div>
 
     <div class="my-5">
       <input 
@@ -33,7 +68,8 @@
         :min="MIN"
         :max="MAX"
         :step="STEP"
-        v-model.number="cantidad"
+        :value="cantidad"
+        @input="handleRange"
       />
     </div>
 
