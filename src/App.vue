@@ -22,13 +22,15 @@
     cantidad.value = +e.target.value;
   };
 
-  const handleDecremento = () => {
+  const handleDecremento = (texto) => {
+    console.log(texto)
     const valor = cantidad.value - STEP;
     if (valor < MIN) return alert('Cantidad no valida')
     cantidad.value = valor;
   };
 
-  const handleIncremento = () => {
+  const handleIncremento = (texto) => {
+    console.log(texto)
     const valor = cantidad.value + STEP;
     if (valor > MAX) return alert('Cantidad no valida')
     cantidad.value = valor;
@@ -48,13 +50,13 @@
       <Button
         :tipoBoton="'button'"
         :contenidoTexto="'-'"
-        :handle="handleDecremento"
+        @handle="handleDecremento"
       />
 
       <Button
         :tipoBoton="'button'"
         :contenidoTexto="'+'"
-        :handle="handleIncremento"
+        @handle="handleIncremento"
       />
 
     </div>
