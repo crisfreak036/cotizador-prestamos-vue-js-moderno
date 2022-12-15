@@ -1,23 +1,24 @@
 <script setup>
-  import { ref, computed } from 'vue';
+  import { ref, watch } from 'vue';
   import Header from './components/Header.vue';
   import Button from './components/Button.vue';
+
+  import { calcularTotalAPagar, formatearDinero } from './helpers/index.js'
 
   // Definición de state con ref
   const cantidad = ref(10000);
   const plazoPagar = ref(6);
+  const total = ref(0)
+  const totalMensual = ref(0)
 
   const MIN = 0;
   const MAX = 20000;
   const STEP = 100;
 
-  const formatearDinero = computed( () => {
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-    });
-    return formatter.format(cantidad.value);
-  });
+  watch([cantidad, plazoPagar], () => {
+    total.value = calcularTotalAPagar(cantidad.value, plazoPagar.value)
+    totalMensual.value = total.value/plazoPagar.value
+  }, { immediate: true });
 
   const handleRange = (e) => {
     cantidad.value = +e.target.value;
@@ -79,7 +80,7 @@
     <p
         class='text-center my-10 text-5xl font-extrabold text-indigo-600'
       >
-        {{formatearDinero}}
+        {{formatearDinero(cantidad)}}
     </p>
 
     <h2 
@@ -96,5 +97,29 @@
       <option value="12">12 Meses</option>
       <option value="24">24 Meses</option>
     </select>
+
+    <div 
+        class="my-5 space-y-3 bg-gray-50 p-5 shadow"
+      >
+        <h2 class='text-2xl font-extrabold text-gray-500 text-center'>
+          Resumen <span class='text-indigo-600'>de Pagos</span>
+        </h2>
+
+        <p 
+          class="text-xl text-gray-500 text-center font-bold"
+        >
+          {{plazoPagar}} Meses
+        </p>
+        <p 
+          class="text-xl text-gray-500 text-center font-bold"
+        >
+          Total a Pagar: {{formatearDinero(total)}}
+        </p>
+        <p 
+          class="text-xl text-gray-500 text-center font-bold"
+        >
+          Pagos Mensuales: {{formatearDinero(totalMensual)}}
+        </p>
+    </div>
   </div>
 </template>
