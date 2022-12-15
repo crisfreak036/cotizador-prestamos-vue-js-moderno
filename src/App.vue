@@ -18,7 +18,7 @@
   watch([cantidad, plazoPagar], () => {
     total.value = calcularTotalAPagar(cantidad.value, plazoPagar.value)
     totalMensual.value = total.value/plazoPagar.value
-  }, { immediate: true });
+  });
 
   const handleRange = (e) => {
     cantidad.value = +e.target.value;
@@ -98,7 +98,8 @@
       <option value="24">24 Meses</option>
     </select>
 
-    <div 
+    <div
+        v-if="total > 0" 
         class="my-5 space-y-3 bg-gray-50 p-5 shadow"
       >
         <h2 class='text-2xl font-extrabold text-gray-500 text-center'>
@@ -121,5 +122,7 @@
           Pagos Mensuales: {{formatearDinero(totalMensual)}}
         </p>
     </div>
+
+    <p v-else class="text-center pt-5 text-black font-bold"> Añade una cantidad y un plazo a pagar </p>
   </div>
 </template>
